@@ -48,11 +48,16 @@ class MapSampleState extends State<MapSample> {
           Positioned(
             top: 60,
             left: MediaQuery.of(context).size.width * 0.05,
+            // width: MediaQuery.of(context).size.width * 0.9,
             child: SearchMapPlaceWidget(
               apiKey: apiKEY,
+              location: _initialCamera.target,
+              radius: 30000,
               onSelected: (place) async {
                 final geolocation = await place.geolocation;
+
                 final GoogleMapController controller = await _mapController.future;
+
                 controller.animateCamera(CameraUpdate.newLatLng(geolocation.coordinates));
                 controller.animateCamera(CameraUpdate.newLatLngBounds(geolocation.bounds, 0));
               },
